@@ -1,0 +1,65 @@
+ublic Game() {
+		addKeyListener(this);
+		addMouseListener(this);
+		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
+        Window();
+        start();
+        run();
+        
+        // Objetos
+        entities = new ArrayList<Entity>();
+        render();
+        tick();
+	}
+
+	public void Window() {
+		frame = new JFrame("The Legends Of Lemos");
+		frame.add(this);
+		frame.setResizable(false);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
+	}
+	
+
+	public synchronized void start(){
+		th = new Thread(this);
+		isRunning = true;
+		th.start();
+	}
+	
+	public synchronized void stop(){
+		isRunning = false;
+		try {
+			th.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String args[]){
+		Game game = new Game();
+		game.start();
+	}
+	
+	public void tick() {
+		
+	}
+	
+	public void render() {
+        BufferStrategy bs = this.getBufferStrategy();
+        if(bs == null) {
+            this.createBufferStrategy(3);
+            return;
+        }
+
+    Graphics g = bs.getDrawGraphics();
+    Graphics2D g2 = (Graphics2D) g;
+    
+    	g.setColor(Color.BLACK);
+        g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
+
+        bs.show();
+    }	
