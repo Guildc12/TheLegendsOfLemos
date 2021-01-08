@@ -1,4 +1,4 @@
-ublic Game() {
+Public Game() {
 		addKeyListener(this);
 		addMouseListener(this);
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
